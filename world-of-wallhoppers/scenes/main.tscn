@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://byc3ni7sdfw6m"]
+[gd_scene load_steps=10 format=4 uid="uid://byc3ni7sdfw6m"]
 
 [ext_resource type="Script" path="res://assets/scripts/player.gd" id="1_ethrm"]
 [ext_resource type="Texture2D" uid="uid://bepq2g7ojyt6s" path="res://assets/sprites/volcano-tiles.png" id="2_r31al"]
+[ext_resource type="Script" path="res://assets/scripts/goal.gd" id="3_7unmi"]
+[ext_resource type="Script" path="res://assets/scripts/camera_lerp_to_position.gd" id="4_7gskp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_biy37"]
 texture = ExtResource("2_r31al")
@@ -154,9 +156,10 @@ size = Vector2(57.5, 95)
 
 [sub_resource type="QuadMesh" id="QuadMesh_7w8lk"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5xfay"]
+size = Vector2(410.535, 150.485)
 
-[node name="Player1_camera" type="Camera2D" parent="."]
+[node name="level" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 position = Vector2(-280, -500)
@@ -202,3 +205,22 @@ shape = SubResource("RectangleShape2D_6ci1u")
 modulate = Color(1, 0, 1, 1)
 scale = Vector2(57.75, 95)
 mesh = SubResource("QuadMesh_7w8lk")
+
+[node name="GoalManager" type="Node" parent="." node_paths=PackedStringArray("goals")]
+script = ExtResource("3_7unmi")
+goals = [NodePath("../goals")]
+
+[node name="goals" type="Area2D" parent="."]
+position = Vector2(0, -529.485)
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="goals"]
+position = Vector2(276, 756.485)
+shape = SubResource("RectangleShape2D_5xfay")
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("object")]
+script = ExtResource("4_7gskp")
+object = NodePath("../Player1Body")
+
+[connection signal="area_entered" from="goals" to="GoalManager" method="_on_goals_area_entered"]
