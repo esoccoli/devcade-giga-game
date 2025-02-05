@@ -41,26 +41,3 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, 50)
 
 	move_and_slide()
-
-
-func _get_property_list():
-	ProjectSettings.get
-	var actions = []
-	for prop in ProjectSettings.get_property_list():
-		var prop_name:String = prop.get("name", "")
-		if prop_name.begins_with('input/'):
-			prop_name = prop_name.replace('input/', '') 
-			prop_name = prop_name.substr(0, prop_name.find("."))
-			if not actions.has(prop_name):
-				actions.append(prop_name)
-	
-	var hint_string = ",".join(actions)
-	
-	var properties = []
-	properties.append({
-		"name": "prompt_action",
-		"type": TYPE_STRING_NAME,
-		"hint": PROPERTY_HINT_ENUM,
-		"hint_string": hint_string
-	})
-	return properties
