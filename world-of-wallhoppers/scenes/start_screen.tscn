@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2wwcwwsq0ao7"]
+
+[ext_resource type="Script" path="res://assets/scripts/StartScreen/start_screen.gd" id="1_kxo13"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("level_select_button", "quit_button", "settings_button", "tutorial_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.998773)
+script = ExtResource("1_kxo13")
+level_select_button = NodePath("CenterContainer/VBoxContainer/LevelSelectButton")
+quit_button = NodePath("CenterContainer/VBoxContainer/QuitButton")
+settings_button = NodePath("CenterContainer/VBoxContainer/SettingsButton")
+tutorial_button = NodePath("CenterContainer/VBoxContainer/TutorialButton")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.5
+offset_right = 49.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="LevelSelectButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Level Select"
+
+[node name="SettingsButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings (not implmented)"
+
+[node name="TutorialButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tutorial (not implmented)"
+
+[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
