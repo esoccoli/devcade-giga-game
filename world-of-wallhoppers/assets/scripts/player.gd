@@ -10,7 +10,7 @@ extends CharacterBody2D
 @export var jump_action: String = " "
 @export var move_left_action: String = " "
 @export var move_right_action: String = " "
-
+@onready var tile_map_layer: TileMapLayer = get_parent().get_node("TileMapLayer")
 var acceleration: float = 0;
 
 
@@ -41,8 +41,13 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, 50)
 
 	move_and_slide()
+	check_for_obstacles()
 
-
+func check_for_obstacles():
+	var tile_pos: Vector2i = tile_map_layer.local_to_map(position)
+	var tile_id = tile_map_layer.get_cell_source_id(tile_pos)
+	print("Tile ID:", tile_id)
+		
 func _get_property_list():
 	ProjectSettings.get
 	var actions = []
